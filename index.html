@@ -1,0 +1,68 @@
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<link rel="stylesheet" href="style.css">
+
+<div id="app">
+
+    <div id="duel" class="mainDiv">
+        <div id="player" class="duelists">
+            <h2>Jogador</h2>
+            <div class="bar">
+                <div class="life" :style="'width: '+playerLife+'%'">
+
+                </div>
+            </div>
+            <div class="lifeCount">
+                {{ playerLife }}%
+            </div>
+
+        </div>
+        <div id="monster" class="duelists">
+            <h2>Monstro</h2>
+            <div class="bar">
+                <div class="life" :style="'width: '+monsterLife+'%'">
+
+                </div>
+            </div>
+            <div class="lifeCount">
+                {{ monsterLife }}%
+            </div>
+
+        </div>
+    </div>
+    <div id="actions" class="mainDiv">
+        <template v-if="gameStarted == false">
+            <button @click="start" class="btn btn-init">
+                INICIAR NOVO JOGO
+            </button>            
+        </template>
+        <template v-if="gameStarted == true">            
+            <button @click="attack('normal')" class="btn">
+                ATACAR
+            </button>
+            <button @click="attack('special')" class="btn">
+                ATAQUE ESPECIAL
+            </button>
+            <button @click="attack('cure')" class="btn">
+                CURAR
+            </button>
+            <button @click="gameStarted = false" class="btn">
+                DESISTIR
+            </button>
+        </template>
+        <template v-if="gameStarted == 'gameOver'">
+            <div id="gameOver" :style="'color: '+gameOverColor">Você {{winner}}</div>
+        </template>
+        
+    </div>
+    <div id="log" class="mainDiv">
+        <div v-for="log in logDamage" class="logAction">
+            {{ log }}
+        </div>        
+    </div>
+
+</div>
+
+
+
+<script src="app.js"></script>
